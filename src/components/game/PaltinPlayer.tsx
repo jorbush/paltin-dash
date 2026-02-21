@@ -5,7 +5,7 @@ import { playJumpSound } from '../../utils/audio';
 import * as THREE from 'three';
 
 const LANE_WIDTH = 2;
-const SPEED = 15;
+// const SPEED = 15;
 const JUMP_POWER = 12;
 const GRAVITY = -30;
 
