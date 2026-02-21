@@ -23,19 +23,39 @@ export const MainMenu: React.FC = () => {
             </h1>
 
             {/* Avocado Character (Paltín placeholder visual) */}
-            <div className="relative w-48 h-48 mb-12 animate-bounce cursor-pointer group">
-                <div className="w-full h-full bg-green-500 border-8 border-black rounded-[50%_50%_50%_50%_/_60%_60%_40%_40%] shadow-[inset_-10px_-10px_0px_rgba(0,0,0,0.2)] flex items-center justify-center relative overflow-hidden transition-transform group-active:scale-95">
-                    {/* Core */}
-                    <div className="w-20 h-20 bg-orange-700 border-4 border-black rounded-full shadow-[inset_-4px_-4px_0_rgba(0,0,0,0.3)]"></div>
-                    {/* Eyes */}
-                    <div className="absolute top-12 left-10 w-4 h-4 bg-black rounded-full"></div>
-                    <div className="absolute top-12 right-10 w-4 h-4 bg-black rounded-full"></div>
-                    {/* Blush */}
-                    <div className="absolute top-14 left-6 w-4 h-4 bg-pink-400 rounded-full opacity-70"></div>
-                    <div className="absolute top-14 right-6 w-4 h-4 bg-pink-400 rounded-full opacity-70"></div>
+            <div className="relative w-48 h-48 mb-16 animate-bounce cursor-pointer group">
+                {/* Arms */}
+                <div className="absolute top-20 -left-10 w-16 h-8 bg-orange-500 border-4 border-black rounded-full -rotate-[30deg] -z-10 origin-right transition-transform group-hover:-rotate-[50deg]"></div>
+                <div className="absolute top-20 -right-10 w-16 h-8 bg-orange-500 border-4 border-black rounded-full rotate-[30deg] -z-10 origin-left transition-transform group-hover:rotate-[50deg]"></div>
+
+                {/* Legs */}
+                <div className="absolute -bottom-8 left-12 w-8 h-16 bg-orange-500 border-4 border-black rounded-full -z-10 origin-top"></div>
+                <div className="absolute -bottom-8 right-12 w-8 h-16 bg-orange-500 border-4 border-black rounded-full -z-10 origin-top"></div>
+
+                {/* Body (Dark Green Outer) */}
+                <div className="w-full h-full bg-green-400 border-8 border-black rounded-[50%_50%_50%_50%_/_60%_60%_40%_40%] shadow-[inset_-10px_-10px_0px_rgba(0,0,0,0.2)] flex items-center justify-center relative overflow-hidden transition-transform group-active:scale-95 z-20">
+
+                    {/* Inner Body (Light Yellow) */}
+                    <div className="absolute top-3 bottom-3 left-3 right-3 bg-[#fef08a] border-4 border-black rounded-[50%_50%_50%_50%_/_60%_60%_40%_40%] shadow-[inset_-4px_-4px_0_rgba(0,0,0,0.1)] flex items-center justify-center">
+                        {/* Core */}
+                        <div className="absolute bottom-[0.35rem] w-20 h-20 bg-orange-700 border-4 border-black rounded-full shadow-[inset_-4px_-4px_0_rgba(0,0,0,0.3)]"></div>
+
+                        {/* Eyes */}
+                        <div className="absolute top-8 left-8 w-4 h-4 bg-[#451a03] rounded-full"></div>
+                        <div className="absolute top-8 right-8 w-4 h-4 bg-[#451a03] rounded-full"></div>
+
+                        {/* Blush */}
+                        <div className="absolute top-11 left-4 w-4 h-4 bg-pink-400 rounded-full opacity-80"></div>
+                        <div className="absolute top-11 right-4 w-4 h-4 bg-pink-400 rounded-full opacity-80"></div>
+
+                        {/* Smile */}
+                        <div className="absolute top-9 w-6 h-4 border-b-4 border-[#451a03] rounded-full"></div>
+                    </div>
                 </div>
-                {/* Leaf */}
-                <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-8 h-12 bg-green-600 border-4 border-black rounded-[0%_100%_0%_100%] rotate-45 transform origin-bottom"></div>
+
+                {/* Leaves */}
+                <div className="absolute -top-6 left-[45%] -translate-x-1/2 w-8 h-12 bg-green-600 border-4 border-black rounded-[0%_100%_0%_100%] rotate-12 transform origin-bottom z-10"></div>
+                <div className="absolute -top-6 left-[48%] -translate-x-1/2 w-6 h-10 bg-orange-500 border-4 border-black rounded-[0%_100%_0%_100%] rotate-[45deg] transform origin-bottom z-10"></div>
             </div>
 
             {/* Action Buttons */}
