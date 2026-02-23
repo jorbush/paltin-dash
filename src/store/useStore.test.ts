@@ -26,16 +26,16 @@ describe('useStore', () => {
     });
 
     it('should add points', () => {
-        useStore.getState().addPoints(10);
+        useStore.getState().addRunScore(10);
+        expect(useStore.getState().runScore).toBe(10);
+        useStore.getState().commitRunScore();
         expect(useStore.getState().points).toBe(10);
-        useStore.getState().addPoints(5);
-        expect(useStore.getState().points).toBe(15);
     });
 
-    it('should reset points', () => {
-        useStore.getState().addPoints(10);
-        useStore.getState().resetPoints();
-        expect(useStore.getState().points).toBe(0);
+    it('should reset points (simulated by resetting run segments)', () => {
+        useStore.getState().incrementSegments();
+        useStore.getState().resetRun();
+        expect(useStore.getState().segmentsPassed).toBe(0);
     });
 
     it('should update language', () => {

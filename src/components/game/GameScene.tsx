@@ -1,15 +1,19 @@
 import React, { useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Sky, ContactShadows, PerspectiveCamera } from '@react-three/drei';
-import { PaltinPlayer } from './PaltinPlayer';
+import { Player } from './Player';
 import { WorldLoader } from './WorldLoader';
 import { Obstacles } from './Obstacles';
 import { useStore } from '../../store/useStore';
 import * as THREE from 'three';
+import { getZoneForSegment } from './zones/ZoneManager';
 
 export const GameScene: React.FC = () => {
     const gameState = useStore((state) => state.gameState);
+    const segmentsPassed = useStore((state) => state.segmentsPassed);
     const playerGroupRef = useRef<THREE.Group>(null);
+
+    const theme = getZoneForSegment(segmentsPassed);
 
     // In order to link Player and Obstacles without massive boilerplate,
     // we hoist the Player's ref creation to their common parent (GameScene).
@@ -23,7 +27,7 @@ export const GameScene: React.FC = () => {
                     fov={50}
                     onUpdate={(c) => c.lookAt(0, -1, -5)}
                 />
-                <color attach="background" args={['#a3e635']} /> {/* Light lime green sky for jungle vibe */}
+                <color attach="background" args={[theme.skyColor]} />
                 <ambientLight intensity={0.5} />
                 <directionalLight
                     castShadow
@@ -41,7 +45,7 @@ export const GameScene: React.FC = () => {
                 <ContactShadows position={[0, 0.05, 0]} opacity={0.6} scale={40} blur={2} far={10} color="#000000" />
 
                 {/* Game Entities */}
-                <PaltinPlayer playerRef={playerGroupRef} />
+                <Player playerRef={playerGroupRef} />
                 <WorldLoader />
                 <Obstacles playerGroupRef={playerGroupRef} />
             </Canvas>

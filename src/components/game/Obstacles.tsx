@@ -3,6 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import { useStore } from '../../store/useStore';
 import { playCoinSound, playCrashSound } from '../../utils/audio';
 import * as THREE from 'three';
+import { getZoneForSegment } from './zones/ZoneManager';
 
 const SPEED = 20;
 const LANE_WIDTH = 2;
@@ -25,18 +26,16 @@ interface ObstaclesProps {
 }
 
 export const Obstacles: React.FC<ObstaclesProps> = ({ playerGroupRef }) => {
-    const { gameState, setGameState, addPoints } = useStore();
+    const { gameState, setGameState, addRunScore, commitRunScore, segmentsPassed, runId } = useStore();
     const [entities, setEntities] = useState<Entity[]>([]);
     const idCounter = useRef(0);
     const nextSpawnTime = useRef(0);
 
     // Reset obstacles on game start
     useEffect(() => {
-        if (gameState === 'playing') {
-            setEntities([]);
-            nextSpawnTime.current = 1; // spawn quickly at start
-        }
-    }, [gameState]);
+        setEntities([]);
+        nextSpawnTime.current = 0; // trigger spawn on next frame
+    }, [runId]);
 
     useFrame((state, delta) => {
         if (gameState !== 'playing') return;
@@ -83,12 +82,13 @@ export const Obstacles: React.FC<ObstaclesProps> = ({ playerGroupRef }) => {
 
                     if (dx < COLLISION_THRESHOLD && dy < COLLISION_THRESHOLD && dz < COLLISION_THRESHOLD) {
                         if (ent.type === 'obstacle') {
+                            commitRunScore();
                             setGameState('gameover');
                             playCrashSound(useStore.getState().volume);
                             nextEntities.push({ ...ent, z: nextZ });
                             continue;
                         } else if (ent.type === 'coin') {
-                            addPoints(10);
+                            addRunScore(10);
                             playCoinSound(useStore.getState().volume);
                             continue;
                         }
@@ -104,6 +104,8 @@ export const Obstacles: React.FC<ObstaclesProps> = ({ playerGroupRef }) => {
         }
     });
 
+    const theme = getZoneForSegment(segmentsPassed);
+
     return (
         <group>
             {entities.map((E) => {
@@ -111,9 +113,7 @@ export const Obstacles: React.FC<ObstaclesProps> = ({ playerGroupRef }) => {
                 if (E.type === 'obstacle') {
                     return (
                         <mesh key={E.id} position={[xPos, E.y, E.z]} rotation={[0, 0, Math.PI / 2]} castShadow receiveShadow>
-                            {/* Jungle log obstacle */}
-                            <cylinderGeometry args={[0.5, 0.5, 1.8, 8]} />
-                            <meshStandardMaterial color="#451a03" roughness={0.9} /> {/* Dark brown log */}
+                            <theme.ObstacleMesh />
                         </mesh>
                     );
                 } else {

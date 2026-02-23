@@ -3,6 +3,7 @@ import { useStore } from '../../store/useStore';
 import { translations } from '../../i18n/translations';
 import { SettingsModal } from './SettingsModal';
 import { StoreModal } from './StoreModal';
+import { LeaderboardModal } from './LeaderboardModal';
 
 export const MainMenu: React.FC = () => {
     const { language, setGameState } = useStore();
@@ -10,6 +11,7 @@ export const MainMenu: React.FC = () => {
 
     const [showSettings, setShowSettings] = useState(false);
     const [showStore, setShowStore] = useState(false);
+    const [showLeaderboard, setShowLeaderboard] = useState(false);
 
     return (
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-orange-200 z-50 p-6 overflow-hidden">
@@ -18,12 +20,12 @@ export const MainMenu: React.FC = () => {
             <div className="absolute bottom-[-10%] right-[-10%] w-64 h-64 bg-green-400 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse" style={{ animationDelay: '2s' }}></div>
 
             {/* Main Title */}
-            <h1 className="text-5xl md:text-7xl font-black text-white text-center mb-12 drop-shadow-[0_4px_0_rgba(0,0,0,1)] uppercase tracking-tighter" style={{ WebkitTextStroke: '2px black' }}>
+            <h1 className="text-5xl md:text-7xl font-black text-white text-center mb-6 mt-4 drop-shadow-[0_4px_0_rgba(0,0,0,1)] uppercase tracking-tighter" style={{ WebkitTextStroke: '2px black' }}>
                 {t.title}
             </h1>
 
             {/* Avocado Character (Paltín placeholder visual) */}
-            <div className="relative w-48 h-48 mb-16 animate-bounce cursor-pointer group">
+            <div className="relative w-48 h-48 mt-12 mb-16 animate-bounce cursor-pointer group">
                 {/* Arms */}
                 <div className="absolute top-20 -left-10 w-16 h-8 bg-orange-500 border-4 border-black rounded-full -rotate-[30deg] -z-10 origin-right transition-transform group-hover:-rotate-[50deg]"></div>
                 <div className="absolute top-20 -right-10 w-16 h-8 bg-orange-500 border-4 border-black rounded-full rotate-[30deg] -z-10 origin-left transition-transform group-hover:rotate-[50deg]"></div>
@@ -61,7 +63,10 @@ export const MainMenu: React.FC = () => {
             {/* Action Buttons */}
             <div className="flex flex-col gap-4 w-full max-w-xs">
                 <button
-                    onClick={() => setGameState('playing')}
+                    onClick={() => {
+                        useStore.getState().resetRun();
+                        setGameState('playing');
+                    }}
                     className="btn-cartoon py-4 text-2xl text-white bg-green-500 hover:bg-green-400"
                 >
                     {t.play}
@@ -82,10 +87,18 @@ export const MainMenu: React.FC = () => {
                         {t.settings}
                     </button>
                 </div>
+
+                <button
+                    onClick={() => setShowLeaderboard(true)}
+                    className="btn-cartoon w-full py-3 text-lg text-black bg-orange-400 hover:bg-orange-300"
+                >
+                    {t.leaderboard}
+                </button>
             </div>
 
             {showSettings && <SettingsModal onClose={() => setShowSettings(false)} />}
             {showStore && <StoreModal onClose={() => setShowStore(false)} />}
+            {showLeaderboard && <LeaderboardModal onClose={() => setShowLeaderboard(false)} />}
         </div>
     );
 };

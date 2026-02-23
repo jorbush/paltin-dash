@@ -4,17 +4,21 @@ import { useStore } from '../../store/useStore';
 import { playJumpSound } from '../../utils/audio';
 import * as THREE from 'three';
 
+import { PaltinMesh } from './characters/PaltinMesh';
+import { CalabacinMesh } from './characters/CalabacinMesh';
+import { PattyJoeMesh } from './characters/PattyJoeMesh';
+
 const LANE_WIDTH = 2;
 // const SPEED = 15;
 const JUMP_POWER = 12;
 const GRAVITY = -30;
 
-interface PaltinPlayerProps {
+interface PlayerProps {
     playerRef: React.RefObject<THREE.Group | null>;
 }
 
-export const PaltinPlayer: React.FC<PaltinPlayerProps> = ({ playerRef }) => {
-    const { gameState } = useStore();
+export const Player: React.FC<PlayerProps> = ({ playerRef }) => {
+    const { gameState, selectedCharacter, runId } = useStore();
     const groupRef = playerRef;
 
     // 0 = middle, -1 = left, 1 = right
@@ -23,6 +27,17 @@ export const PaltinPlayer: React.FC<PaltinPlayerProps> = ({ playerRef }) => {
     // Physics state
     const velocity = useRef(new THREE.Vector3());
     const isGrounded = useRef(true);
+
+    // Reset Player State on New Run
+    useEffect(() => {
+        setTargetLane(0);
+        velocity.current.set(0, 0, 0);
+        isGrounded.current = true;
+        if (groupRef.current) {
+            groupRef.current.position.set(0, 0.5, 0);
+            groupRef.current.rotation.set(0, 0, 0);
+        }
+    }, [runId]);
 
     // Handle Input
     useEffect(() => {
@@ -91,7 +106,11 @@ export const PaltinPlayer: React.FC<PaltinPlayerProps> = ({ playerRef }) => {
     }, [gameState]);
 
     useFrame((state, delta) => {
-        if (gameState !== 'playing' || !groupRef.current) return;
+        if (gameState !== 'playing' || !groupRef.current) {
+            return;
+        }
+
+        // --- Keyboard Controls ---
 
         // Lane movement (X axis) using Lerp for smooth switching
         const targetX = targetLane * LANE_WIDTH;
@@ -120,74 +139,9 @@ export const PaltinPlayer: React.FC<PaltinPlayerProps> = ({ playerRef }) => {
 
     return (
         <group ref={groupRef} position={[0, 0.5, 0]}>
-            {/* Platform Shadow */}
-            {/* Arms */}
-            <mesh position={[-0.55, 0, 0]} rotation={[0, 0, Math.PI / 3]}>
-                <capsuleGeometry args={[0.08, 0.3, 8, 16]} />
-                <meshStandardMaterial color="#f97316" roughness={0.8} />
-            </mesh>
-            <mesh position={[0.55, 0, 0]} rotation={[0, 0, -Math.PI / 3]}>
-                <capsuleGeometry args={[0.08, 0.3, 8, 16]} />
-                <meshStandardMaterial color="#f97316" roughness={0.8} />
-            </mesh>
-
-            {/* Legs */}
-            <mesh position={[-0.2, -0.6, 0]} rotation={[0, 0, 0]}>
-                <capsuleGeometry args={[0.1, 0.3, 8, 16]} />
-                <meshStandardMaterial color="#f97316" roughness={0.8} />
-            </mesh>
-            <mesh position={[0.2, -0.6, 0]} rotation={[0, 0, 0]}>
-                <capsuleGeometry args={[0.1, 0.3, 8, 16]} />
-                <meshStandardMaterial color="#f97316" roughness={0.8} />
-            </mesh>
-
-            {/* Paltin Body (Dark Green Outer) */}
-            <mesh castShadow receiveShadow>
-                <capsuleGeometry args={[0.5, 0.5, 16, 16]} />
-                <meshStandardMaterial color="#4ade80" roughness={0.6} />
-            </mesh>
-
-            {/* Paltin Inner Body (Light Yellowish Green) */}
-            <mesh position={[0, 0, 0.12]} castShadow receiveShadow>
-                <capsuleGeometry args={[0.4, 0.45, 16, 16]} />
-                <meshStandardMaterial color="#fef08a" roughness={0.6} />
-            </mesh>
-
-            {/* Core / Seed */}
-            <mesh position={[0, -0.1, 0.5]} castShadow>
-                <sphereGeometry args={[0.22, 16, 16]} />
-                <meshStandardMaterial color="#9a3412" roughness={0.8} />
-            </mesh>
-
-            {/* Eyes */}
-            <mesh position={[-0.15, 0.3, 0.5]}>
-                <sphereGeometry args={[0.06, 8, 8]} />
-                <meshBasicMaterial color="#451a03" />
-            </mesh>
-            <mesh position={[0.15, 0.3, 0.5]}>
-                <sphereGeometry args={[0.06, 8, 8]} />
-                <meshBasicMaterial color="#451a03" />
-            </mesh>
-
-            {/* Cheeks */}
-            <mesh position={[-0.3, 0.2, 0.48]}>
-                <sphereGeometry args={[0.06, 8, 8]} />
-                <meshBasicMaterial color="#f472b6" />
-            </mesh>
-            <mesh position={[0.3, 0.2, 0.48]}>
-                <sphereGeometry args={[0.06, 8, 8]} />
-                <meshBasicMaterial color="#f472b6" />
-            </mesh>
-
-            {/* Leaves */}
-            <mesh position={[-0.05, 0.85, 0]} rotation={[0, 0, Math.PI / 6]}>
-                <coneGeometry args={[0.12, 0.35, 8]} />
-                <meshStandardMaterial color="#16a34a" />
-            </mesh>
-            <mesh position={[0.1, 0.85, 0]} rotation={[0, 0, -Math.PI / 6]}>
-                <coneGeometry args={[0.08, 0.3, 8]} />
-                <meshStandardMaterial color="#f97316" />
-            </mesh>
+            {selectedCharacter === 'patty' && <PattyJoeMesh />}
+            {selectedCharacter === 'calabacin' && <CalabacinMesh />}
+            {selectedCharacter === 'paltin' && <PaltinMesh />}
         </group>
     );
 };
