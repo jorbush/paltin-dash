@@ -8,8 +8,9 @@ import { initAudio } from '../utils/audio';
 import { Pause } from 'lucide-react';
 
 export const GameWrapper: React.FC = () => {
-    const { gameState, setGameState, points, runScore, language, resetRun } = useStore();
+    const { gameState, setGameState, points, runScore, language, resetRun, volume } = useStore();
     const t = translations[language];
+    const bgMusicRef = React.useRef<HTMLAudioElement>(null);
 
     const handleRetry = () => {
         resetRun();
@@ -35,6 +36,17 @@ export const GameWrapper: React.FC = () => {
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [setGameState]);
+
+    React.useEffect(() => {
+        if (bgMusicRef.current) {
+            bgMusicRef.current.volume = volume;
+            if (gameState === 'playing') {
+                bgMusicRef.current.play().catch(e => console.warn('Audio play failed', e));
+            } else {
+                bgMusicRef.current.pause();
+            }
+        }
+    }, [gameState, volume]);
 
     return (
         <main
@@ -112,6 +124,8 @@ export const GameWrapper: React.FC = () => {
                     </div>
                 )}
             </div>
+
+            <audio ref={bgMusicRef} src="/soundtrack.mp3" loop preload="auto" />
         </main>
     );
 };
