@@ -95,18 +95,18 @@ export const GameWrapper: React.FC = () => {
                                 <span className="text-2xl font-black text-white drop-shadow-[0_2px_0_rgba(0,0,0,1)]" style={{ WebkitTextStroke: '1px black' }}>{points}</span>
                             </div>
                         </div>
-                        <div className="flex flex-col sm:flex-row gap-4 mt-4 w-full">
+                        <div className="flex flex-col sm:flex-row gap-4 mt-4 w-full items-stretch">
                             <button
                                 onClick={handleRetry}
-                                className="btn-cartoon flex-1 px-4 sm:px-8 py-4 text-xl sm:text-2xl text-white bg-green-500 hover:bg-green-400"
+                                className="btn-cartoon flex-1 px-2 sm:px-4 py-3 sm:py-4 text-lg sm:text-xl text-white bg-green-500 hover:bg-green-400 h-full flex flex-col justify-center items-center text-center leading-tight min-h-[4rem]"
                             >
-                                {t.retry}
+                                <span>{t.retry}</span>
                             </button>
                             <button
                                 onClick={handleMenu}
-                                className="btn-cartoon flex-1 px-4 sm:px-8 py-4 text-xl sm:text-2xl text-black bg-blue-400 hover:bg-blue-300"
+                                className="btn-cartoon flex-1 px-2 sm:px-4 py-3 sm:py-4 text-lg sm:text-xl text-black bg-blue-400 hover:bg-blue-300 h-full flex flex-col justify-center items-center text-center leading-tight min-h-[4rem]"
                             >
-                                {t.menu}
+                                <span>{t.menu}</span>
                             </button>
                         </div>
                     </div>

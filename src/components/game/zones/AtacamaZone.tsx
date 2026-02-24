@@ -65,7 +65,7 @@ const DesertRock: React.FC<{ position: [number, number, number]; scale?: number 
     );
 };
 
-const AtacamaScenery: React.FC<{ segmentIndex: number; zOffset: number }> = ({ segmentIndex, zOffset }) => {
+const AtacamaScenery: React.FC<{ zOffset: number }> = ({ zOffset }) => {
     return (
         <group>
             {/* Left Side Scenery */}

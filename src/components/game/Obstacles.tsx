@@ -5,7 +5,6 @@ import { playCoinSound, playCrashSound } from '../../utils/audio';
 import * as THREE from 'three';
 import { getZoneForSegment } from './zones/ZoneManager';
 
-const SPEED = 20;
 const LANE_WIDTH = 2;
 const SPAWN_Z = -50;
 const DESPAWN_Z = 5;
@@ -72,7 +71,8 @@ export const Obstacles: React.FC<ObstaclesProps> = ({ playerGroupRef }) => {
 
                 for (const ent of prevEntities) {
                     // move entity
-                    const nextZ = ent.z + SPEED * delta;
+                    const currentSpeed = Math.min(40, 20 + segmentsPassed * 0.5);
+                    const nextZ = ent.z + currentSpeed * delta;
                     const currentX = ent.lane * LANE_WIDTH;
 
                     // Check collision
@@ -121,7 +121,7 @@ export const Obstacles: React.FC<ObstaclesProps> = ({ playerGroupRef }) => {
                         <group key={E.id} position={[xPos, E.y, E.z]}>
                             <mesh castShadow rotation={[Math.PI / 2, 0, 0]}>
                                 <cylinderGeometry args={[0.4, 0.4, 0.1, 16]} />
-                                <meshStandardMaterial color="#eab308" metalness={0.8} roughness={0.2} /> {/* Gold coin */}
+                                <meshStandardMaterial color="#FDC800" metalness={0.8} roughness={0.2} /> {/* Cyan coin */}
                             </mesh>
                         </group>
                     );

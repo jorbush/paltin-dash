@@ -139,9 +139,11 @@ export const Player: React.FC<PlayerProps> = ({ playerRef }) => {
 
     return (
         <group ref={groupRef} position={[0, 0.5, 0]}>
-            {selectedCharacter === 'patty' && <PattyJoeMesh />}
-            {selectedCharacter === 'calabacin' && <CalabacinMesh />}
-            {selectedCharacter === 'paltin' && <PaltinMesh />}
+            <group rotation={[0, Math.PI, 0]}>
+                {selectedCharacter === 'patty' && <PattyJoeMesh />}
+                {selectedCharacter === 'calabacin' && <CalabacinMesh />}
+                {selectedCharacter === 'paltin' && <PaltinMesh />}
+            </group>
         </group>
     );
 };

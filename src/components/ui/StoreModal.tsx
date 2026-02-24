@@ -16,8 +16,8 @@ interface Props {
 
 const characters = [
     { id: 'paltin', nameKey: 'char_paltin', price: 0 },
-    { id: 'calabacin', nameKey: 'char_calabacin', price: 50 },
-    { id: 'patty', nameKey: 'char_patty', price: 100 },
+    { id: 'calabacin', nameKey: 'char_calabacin', price: 1000 },
+    { id: 'patty', nameKey: 'char_patty', price: 2000 },
 ];
 
 const CharacterPreview = ({ charId }: { charId: string }) => {

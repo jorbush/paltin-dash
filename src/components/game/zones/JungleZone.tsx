@@ -40,7 +40,7 @@ const Bush: React.FC<{ position: [number, number, number]; scale?: number }> = (
     );
 };
 
-const JungleScenery: React.FC<{ segmentIndex: number; zOffset: number }> = ({ segmentIndex, zOffset }) => {
+const JungleScenery: React.FC<{ zOffset: number }> = ({ zOffset }) => {
     return (
         <group>
             {/* Left Side Scenery */}

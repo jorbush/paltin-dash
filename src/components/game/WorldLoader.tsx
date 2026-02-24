@@ -5,8 +5,6 @@ import * as THREE from 'three';
 import { getZoneForSegment } from './zones/ZoneManager';
 
 const SEGMENT_LENGTH = 50;
-const SPEED = 20;
-
 export const WorldLoader: React.FC = () => {
     const { gameState, addRunScore, segmentsPassed, incrementSegments, runId } = useStore();
     const floorGroupRef = useRef<THREE.Group>(null);
@@ -15,7 +13,8 @@ export const WorldLoader: React.FC = () => {
         if (gameState !== 'playing' || !floorGroupRef.current) return;
 
         // Move the floor towards the camera (+Z direction) to simulate moving forward
-        floorGroupRef.current.position.z += SPEED * delta;
+        const currentSpeed = Math.min(40, 20 + segmentsPassed * 0.5);
+        floorGroupRef.current.position.z += currentSpeed * delta;
 
         // Reset floor position to create infinite loop
         if (floorGroupRef.current.position.z >= SEGMENT_LENGTH) {
