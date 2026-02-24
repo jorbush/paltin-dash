@@ -76,7 +76,7 @@ export const translations = {
         menu: 'Menú Principal',
         close: 'Tancar',
         char_paltin: 'Paltín',
-        char_calabacin: 'Carabassó',
+        char_calabacin: 'Calabacín',
         char_patty: 'Patty Joe',
         equip: 'Equipar',
         equipped: 'Equipat',
