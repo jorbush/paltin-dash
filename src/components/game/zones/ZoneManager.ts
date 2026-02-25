@@ -1,11 +1,13 @@
 import type { ZoneTheme } from './types';
 import { jungleTheme } from './JungleZone';
 import { atacamaTheme } from './AtacamaZone';
+import { patagoniaTheme } from './PatagoniaZone';
 
 // Central registry of all available Latin American zones
 export const LATIN_AMERICA_ZONES: ZoneTheme[] = [
     jungleTheme,
-    atacamaTheme
+    atacamaTheme,
+    patagoniaTheme
 ];
 
 export const SEGMENTS_PER_ZONE = 20;
