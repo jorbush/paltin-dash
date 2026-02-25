@@ -7,6 +7,7 @@ import { PerspectiveCamera, ContactShadows } from '@react-three/drei';
 import * as THREE from 'three';
 
 import { PaltinMesh } from '../game/characters/PaltinMesh';
+import { PaltinSamuraiMesh } from '../game/characters/PaltinSamuraiMesh';
 import { CalabacinMesh } from '../game/characters/CalabacinMesh';
 import { PattyJoeMesh } from '../game/characters/PattyJoeMesh';
 
@@ -18,6 +19,7 @@ const characters = [
     { id: 'paltin', nameKey: 'char_paltin', price: 0 },
     { id: 'calabacin', nameKey: 'char_calabacin', price: 1000 },
     { id: 'patty', nameKey: 'char_patty', price: 2000 },
+    { id: 'paltin_samurai', nameKey: 'char_paltin_samurai', price: 5000 },
 ];
 
 const CharacterPreview = ({ charId }: { charId: string }) => {
@@ -32,6 +34,7 @@ const CharacterPreview = ({ charId }: { charId: string }) => {
         <group ref={groupRef} position={[0, 0.2, 0]}>
             {charId === 'patty' && <PattyJoeMesh />}
             {charId === 'calabacin' && <CalabacinMesh />}
+            {charId === 'paltin_samurai' && <PaltinSamuraiMesh />}
             {charId === 'paltin' && <PaltinMesh />}
         </group>
     );

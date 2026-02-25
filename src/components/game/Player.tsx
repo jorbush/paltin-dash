@@ -5,6 +5,7 @@ import { playJumpSound } from '../../utils/audio';
 import * as THREE from 'three';
 
 import { PaltinMesh } from './characters/PaltinMesh';
+import { PaltinSamuraiMesh } from './characters/PaltinSamuraiMesh';
 import { CalabacinMesh } from './characters/CalabacinMesh';
 import { PattyJoeMesh } from './characters/PattyJoeMesh';
 
@@ -143,6 +144,7 @@ export const Player: React.FC<PlayerProps> = ({ playerRef }) => {
                 {selectedCharacter === 'patty' && <PattyJoeMesh />}
                 {selectedCharacter === 'calabacin' && <CalabacinMesh />}
                 {selectedCharacter === 'paltin' && <PaltinMesh />}
+                {selectedCharacter === 'paltin_samurai' && <PaltinSamuraiMesh />}
             </group>
         </group>
     );
