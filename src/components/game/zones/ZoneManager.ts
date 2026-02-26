@@ -9,7 +9,7 @@ export const LATIN_AMERICA_ZONES: ZoneTheme[] = [
     patagoniaTheme
 ];
 
-export const SEGMENTS_PER_ZONE = 5;
+export const SEGMENTS_PER_ZONE = 20;
 
 export function getZoneForSegment(segmentPassedCount: number): ZoneTheme {
     const zoneIndex = Math.floor(segmentPassedCount / SEGMENTS_PER_ZONE) % LATIN_AMERICA_ZONES.length;
