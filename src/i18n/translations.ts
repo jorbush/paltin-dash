@@ -27,6 +27,9 @@ export const translations = {
         equipped: 'Equipped',
         buy: 'Buy for',
         notEnoughPoints: 'Not enough points',
+        zone_amazon_jungle: 'The Jungle',
+        zone_atacama_desert: 'Atacama Desert',
+        zone_patagonia_glacier: 'Patagonia',
     },
     es: {
         title: 'Paltín Dash',
@@ -56,6 +59,9 @@ export const translations = {
         equipped: 'Equipado',
         buy: 'Comprar por',
         notEnoughPoints: 'No hay suficientes puntos',
+        zone_amazon_jungle: 'La Selva',
+        zone_atacama_desert: 'Desierto de Atacama',
+        zone_patagonia_glacier: 'La Patagonia',
     },
     ca: {
         title: 'Paltín Dash',
@@ -85,5 +91,8 @@ export const translations = {
         equipped: 'Equipat',
         buy: 'Comprar per',
         notEnoughPoints: 'No hi ha prou punts',
+        zone_amazon_jungle: 'La Selva',
+        zone_atacama_desert: 'Desert d\'Atacama',
+        zone_patagonia_glacier: 'La Patagònia',
     },
 };

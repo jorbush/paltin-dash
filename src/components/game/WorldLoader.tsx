@@ -2,7 +2,8 @@ import React, { useRef, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useStore } from '../../store/useStore';
 import * as THREE from 'three';
-import { getZoneForSegment } from './zones/ZoneManager';
+import { getZoneForSegment, SEGMENTS_PER_ZONE, LATIN_AMERICA_ZONES } from './zones/ZoneManager';
+import { ZonePoster } from './zones/ZonePoster';
 
 const SEGMENT_LENGTH = 50;
 export const WorldLoader: React.FC = () => {
@@ -59,11 +60,16 @@ export const WorldLoader: React.FC = () => {
                 {[-2, -1, 0, 1].map((segmentIndex) => {
                     const zOffset = segmentIndex * SEGMENT_LENGTH;
                     return (
-                        <theme.Scenery
-                            key={`scenery-${segmentIndex}`}
-                            segmentIndex={segmentIndex}
-                            zOffset={zOffset}
-                        />
+                        <group key={`scenery-group-${segmentIndex}`}>
+                            <theme.Scenery
+                                segmentIndex={segmentIndex}
+                                zOffset={zOffset}
+                            />
+                            {/* Poster for the zone name appears at the start of every zone during the first loop */}
+                            {segmentsPassed % SEGMENTS_PER_ZONE === 0 && segmentIndex === -1 && segmentsPassed < SEGMENTS_PER_ZONE * LATIN_AMERICA_ZONES.length && (
+                                <ZonePoster zoneId={theme.id} zOffset={zOffset} />
+                            )}
+                        </group>
                     );
                 })}
 
