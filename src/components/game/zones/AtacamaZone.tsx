@@ -94,6 +94,46 @@ const AtacamaObstacle: React.FC = () => {
     );
 };
 
+// -------- Enemy & Projectile Components --------
+const AtacamaGuanaco: React.FC = () => {
+    return (
+        <group>
+            {/* Body */}
+            <mesh position={[0, 0.8, 0]} castShadow receiveShadow>
+                <boxGeometry args={[0.5, 0.6, 1.2]} />
+                <meshStandardMaterial color="#c2a476" roughness={0.9} /> {/* Tan/Brown body */}
+            </mesh>
+            {/* Neck */}
+            <mesh position={[0, 1.4, 0.4]} rotation={[0.2, 0, 0]} castShadow receiveShadow>
+                <cylinderGeometry args={[0.15, 0.2, 0.8, 8]} />
+                <meshStandardMaterial color="#c2a476" roughness={0.9} />
+            </mesh>
+            {/* Head */}
+            <mesh position={[0, 1.8, 0.5]} castShadow receiveShadow>
+                <boxGeometry args={[0.3, 0.3, 0.4]} />
+                <meshStandardMaterial color="#a68452" roughness={0.9} />
+            </mesh>
+            {/* Legs (Simplified) */}
+            <mesh position={[-0.15, 0.4, 0.4]} castShadow receiveShadow>
+                <cylinderGeometry args={[0.08, 0.05, 0.8, 8]} />
+                <meshStandardMaterial color="#c2a476" roughness={0.9} />
+            </mesh>
+            <mesh position={[0.15, 0.4, 0.4]} castShadow receiveShadow>
+                <cylinderGeometry args={[0.08, 0.05, 0.8, 8]} />
+                <meshStandardMaterial color="#c2a476" roughness={0.9} />
+            </mesh>
+            <mesh position={[-0.15, 0.4, -0.4]} castShadow receiveShadow>
+                <cylinderGeometry args={[0.08, 0.05, 0.8, 8]} />
+                <meshStandardMaterial color="#c2a476" roughness={0.9} />
+            </mesh>
+            <mesh position={[0.15, 0.4, -0.4]} castShadow receiveShadow>
+                <cylinderGeometry args={[0.08, 0.05, 0.8, 8]} />
+                <meshStandardMaterial color="#c2a476" roughness={0.9} />
+            </mesh>
+        </group>
+    );
+};
+
 // -------- Theme Definition --------
 export const atacamaTheme: ZoneTheme = {
     id: 'atacama_desert',
@@ -104,4 +144,5 @@ export const atacamaTheme: ZoneTheme = {
     pathColor: '#b45309', // Dark orange/brown path
     Scenery: AtacamaScenery,
     ObstacleMesh: AtacamaObstacle,
+    EnemyMesh: AtacamaGuanaco,
 };

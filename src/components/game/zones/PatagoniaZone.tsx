@@ -68,6 +68,52 @@ const PatagoniaObstacle: React.FC = () => {
     );
 };
 
+// -------- Enemy Components --------
+const PatagoniaPenguin: React.FC = () => {
+    return (
+        <group>
+            {/* Body */}
+            <mesh position={[0, 0.5, 0]} castShadow receiveShadow>
+                <cylinderGeometry args={[0.25, 0.3, 0.8, 16]} />
+                <meshStandardMaterial color="#0f172a" roughness={0.8} /> {/* Black back */}
+            </mesh>
+            {/* Belly */}
+            <mesh position={[0, 0.5, 0.1]} castShadow receiveShadow>
+                <cylinderGeometry args={[0.2, 0.25, 0.75, 16]} />
+                <meshStandardMaterial color="#f8fafc" roughness={0.8} /> {/* White belly */}
+            </mesh>
+            {/* Head */}
+            <mesh position={[0, 1.0, 0]} castShadow receiveShadow>
+                <sphereGeometry args={[0.25, 16, 16]} />
+                <meshStandardMaterial color="#0f172a" roughness={0.8} /> {/* Black head */}
+            </mesh>
+            {/* Beak */}
+            <mesh position={[0, 1.0, 0.25]} rotation={[Math.PI / 2, 0, 0]} castShadow receiveShadow>
+                <coneGeometry args={[0.08, 0.2, 8]} />
+                <meshStandardMaterial color="#f59e0b" roughness={0.7} /> {/* Orange beak */}
+            </mesh>
+            {/* Flippers */}
+            <mesh position={[-0.3, 0.5, 0]} rotation={[0, 0, 0.3]} castShadow receiveShadow>
+                <boxGeometry args={[0.05, 0.4, 0.2]} />
+                <meshStandardMaterial color="#0f172a" roughness={0.8} />
+            </mesh>
+            <mesh position={[0.3, 0.5, 0]} rotation={[0, 0, -0.3]} castShadow receiveShadow>
+                <boxGeometry args={[0.05, 0.4, 0.2]} />
+                <meshStandardMaterial color="#0f172a" roughness={0.8} />
+            </mesh>
+            {/* Feet */}
+            <mesh position={[-0.15, 0.05, 0.1]} castShadow receiveShadow>
+                <boxGeometry args={[0.1, 0.1, 0.2]} />
+                <meshStandardMaterial color="#f59e0b" roughness={0.7} />
+            </mesh>
+            <mesh position={[0.15, 0.05, 0.1]} castShadow receiveShadow>
+                <boxGeometry args={[0.1, 0.1, 0.2]} />
+                <meshStandardMaterial color="#f59e0b" roughness={0.7} />
+            </mesh>
+        </group>
+    );
+};
+
 // -------- Theme Definition --------
 export const patagoniaTheme: ZoneTheme = {
     id: 'patagonia_glacier',
@@ -78,4 +124,5 @@ export const patagoniaTheme: ZoneTheme = {
     pathColor: '#38bdf8', // Ice path
     Scenery: PatagoniaScenery,
     ObstacleMesh: PatagoniaObstacle,
+    EnemyMesh: PatagoniaPenguin,
 };

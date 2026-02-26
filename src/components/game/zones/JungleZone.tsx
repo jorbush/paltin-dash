@@ -1,4 +1,5 @@
 import React from 'react';
+import * as THREE from 'three';
 import type { ZoneTheme } from './types';
 
 // -------- Scenery Components --------
@@ -69,6 +70,54 @@ const JungleObstacle: React.FC = () => {
     );
 };
 
+// -------- Enemy & Projectile Components --------
+const JungleMonkey: React.FC = () => {
+    return (
+        <group>
+            {/* Body */}
+            <mesh position={[0, 0.5, 0]} castShadow receiveShadow>
+                <cylinderGeometry args={[0.4, 0.5, 1, 8]} />
+                <meshStandardMaterial color="#5c3a21" roughness={0.9} /> {/* Brown body */}
+            </mesh>
+            {/* Head */}
+            <mesh position={[0, 1.3, 0]} castShadow receiveShadow>
+                <sphereGeometry args={[0.35, 16, 16]} />
+                <meshStandardMaterial color="#5c3a21" roughness={0.9} />
+            </mesh>
+            {/* Face */}
+            <mesh position={[0, 1.3, 0.25]} castShadow receiveShadow>
+                <sphereGeometry args={[0.25, 16, 16]} />
+                <meshStandardMaterial color="#d4a373" roughness={0.8} /> {/* Tan face */}
+            </mesh>
+            {/* Arms up holding banana */}
+            <mesh position={[-0.4, 1.0, 0.2]} rotation={[0, 0, Math.PI / 4]} castShadow receiveShadow>
+                <cylinderGeometry args={[0.1, 0.1, 0.8, 8]} />
+                <meshStandardMaterial color="#5c3a21" roughness={0.9} />
+            </mesh>
+            <mesh position={[0.4, 1.0, 0.2]} rotation={[0, 0, -Math.PI / 4]} castShadow receiveShadow>
+                <cylinderGeometry args={[0.1, 0.1, 0.8, 8]} />
+                <meshStandardMaterial color="#5c3a21" roughness={0.9} />
+            </mesh>
+        </group>
+    );
+};
+
+const BananaProjectile: React.FC = () => {
+    return (
+        <group scale={[0.5, 0.5, 0.5]}>
+            <mesh castShadow receiveShadow>
+                <tubeGeometry args={[new THREE.CatmullRomCurve3([
+                    new THREE.Vector3(-1, 0, 0),
+                    new THREE.Vector3(-0.5, 0.5, 0),
+                    new THREE.Vector3(0.5, 0.5, 0),
+                    new THREE.Vector3(1, 0, 0)
+                ]), 8, 0.2, 8, false]} />
+                <meshStandardMaterial color="#eab308" roughness={0.4} /> {/* Yellow banana */}
+            </mesh>
+        </group>
+    );
+};
+
 // -------- Theme Definition --------
 export const jungleTheme: ZoneTheme = {
     id: 'amazon_jungle',
@@ -79,4 +128,6 @@ export const jungleTheme: ZoneTheme = {
     pathColor: '#a16207', // Dirt path
     Scenery: JungleScenery,
     ObstacleMesh: JungleObstacle,
+    EnemyMesh: JungleMonkey,
+    ProjectileMesh: BananaProjectile,
 };

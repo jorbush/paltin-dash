@@ -13,4 +13,6 @@ export interface ZoneTheme {
     // Scenery Components
     Scenery: React.FC<{ segmentIndex: number; zOffset: number }>;
     ObstacleMesh: React.FC;
+    EnemyMesh?: React.FC; // Used for moving enemies like Guanaco, Penguin, and Monkey
+    ProjectileMesh?: React.FC; // Used for projectiles like Bananas
 }
