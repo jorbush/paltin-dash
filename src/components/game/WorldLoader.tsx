@@ -4,11 +4,22 @@ import { useStore } from '../../store/useStore';
 import * as THREE from 'three';
 import { getZoneForSegment, SEGMENTS_PER_ZONE, LATIN_AMERICA_ZONES } from './zones/ZoneManager';
 import { ZonePoster } from './zones/ZonePoster';
+import { JorbitesPoster } from './zones/JorbitesPoster';
 
 const SEGMENT_LENGTH = 50;
 export const WorldLoader: React.FC = () => {
     const { gameState, addRunScore, segmentsPassed, incrementSegments, runId } = useStore();
     const floorGroupRef = useRef<THREE.Group>(null);
+
+    // Pick a random zone index for the Jorbites poster (0 to LATIN_AMERICA_ZONES.length - 1)
+    // Use useMemo with runId so it resets gracefully on new runs.
+    const jorbitesRandomZoneIndex = React.useMemo(() => {
+        return Math.floor(Math.random() * LATIN_AMERICA_ZONES.length);
+    }, [runId]);
+
+    // The segment to place the Jorbites poster: end of the randomly chosen zone.
+    // SEGMENTS_PER_ZONE - 2 ensures it isn't literally the very edge where themes blend
+    const JORBITES_TARGET_SEGMENT = jorbitesRandomZoneIndex * SEGMENTS_PER_ZONE + SEGMENTS_PER_ZONE - 2;
 
     useFrame((state, delta) => {
         if (gameState !== 'playing' || !floorGroupRef.current) return;
@@ -68,6 +79,10 @@ export const WorldLoader: React.FC = () => {
                             {/* Poster for the zone name appears at the start of every zone during the first loop */}
                             {segmentsPassed % SEGMENTS_PER_ZONE === 0 && segmentIndex === -1 && segmentsPassed < SEGMENTS_PER_ZONE * LATIN_AMERICA_ZONES.length && (
                                 <ZonePoster zoneId={theme.id} zOffset={zOffset} />
+                            )}
+                            {/* Jorbites Poster renders at the end of the randomly selected zone exactly once */}
+                            {segmentsPassed === JORBITES_TARGET_SEGMENT && segmentIndex === -1 && (
+                                <JorbitesPoster zOffset={zOffset} />
                             )}
                         </group>
                     );
