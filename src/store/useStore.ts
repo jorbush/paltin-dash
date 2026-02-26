@@ -35,7 +35,7 @@ const decrypt = (data: string): string => {
     try {
         return atob(data);
     } catch (e) {
-        console.error("Failed to decode local storage data. Check for tampering.");
+        console.error("Failed to decode local storage data. Check for tampering. ", e);
         return data; // Fallback in case it's plain JSON (retro-compatibility) or corrupted
     }
 };
