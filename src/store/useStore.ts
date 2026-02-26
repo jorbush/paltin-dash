@@ -1,5 +1,6 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import type { StateStorage } from 'zustand/middleware';
 
 export type GameState = 'menu' | 'playing' | 'paused' | 'gameover';
 export type Language = 'en' | 'es' | 'ca';
@@ -25,6 +26,33 @@ interface StoreState {
     unlockCharacter: (id: string, cost: number) => void;
     selectCharacter: (id: string) => void;
 }
+
+const encrypt = (data: string): string => {
+    return btoa(data);
+};
+
+const decrypt = (data: string): string => {
+    try {
+        return atob(data);
+    } catch (e) {
+        console.error("Failed to decode local storage data. Check for tampering.");
+        return data; // Fallback in case it's plain JSON (retro-compatibility) or corrupted
+    }
+};
+
+const customStorage: StateStorage = {
+    getItem: (name: string): string | null => {
+        const str = localStorage.getItem(name);
+        if (!str) return null;
+        return decrypt(str);
+    },
+    setItem: (name: string, value: string): void => {
+        localStorage.setItem(name, encrypt(value));
+    },
+    removeItem: (name: string): void => {
+        localStorage.removeItem(name);
+    }
+};
 
 export const useStore = create<StoreState>()(
     persist(
@@ -60,6 +88,7 @@ export const useStore = create<StoreState>()(
         }),
         {
             name: 'paltin-game-storage',
+            storage: createJSONStorage(() => customStorage),
             partialize: (state) => ({
                 points: state.points,
                 highScores: state.highScores,
@@ -67,7 +96,7 @@ export const useStore = create<StoreState>()(
                 volume: state.volume,
                 selectedCharacter: state.selectedCharacter,
                 unlockedCharacters: state.unlockedCharacters
-            }),
+            } as StoreState),
         }
     )
 );
