@@ -8,6 +8,7 @@ import * as THREE from 'three';
 
 import { PaltinMesh } from '../game/characters/PaltinMesh';
 import { PaltinSamuraiMesh } from '../game/characters/PaltinSamuraiMesh';
+import { PaltinMexicanMesh } from '../game/characters/PaltinMexicanMesh';
 import { CalabacinMesh } from '../game/characters/CalabacinMesh';
 import { PattyJoeMesh } from '../game/characters/PattyJoeMesh';
 
@@ -20,6 +21,7 @@ const characters = [
     { id: 'calabacin', nameKey: 'char_calabacin', price: 1000 },
     { id: 'patty', nameKey: 'char_patty', price: 2000 },
     { id: 'paltin_samurai', nameKey: 'char_paltin_samurai', price: 5000 },
+    { id: 'paltin_mexican', nameKey: 'char_paltin_mexican', price: 3000 },
 ];
 
 const CharacterPreview = ({ charId }: { charId: string }) => {
@@ -36,6 +38,7 @@ const CharacterPreview = ({ charId }: { charId: string }) => {
             {charId === 'calabacin' && <CalabacinMesh />}
             {charId === 'paltin_samurai' && <PaltinSamuraiMesh />}
             {charId === 'paltin' && <PaltinMesh />}
+            {charId === 'paltin_mexican' && <PaltinMexicanMesh />}
         </group>
     );
 };
