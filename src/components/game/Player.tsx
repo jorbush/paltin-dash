@@ -6,6 +6,7 @@ import * as THREE from 'three';
 
 import { PaltinMesh } from './characters/PaltinMesh';
 import { PaltinSamuraiMesh } from './characters/PaltinSamuraiMesh';
+import { PaltinMexicanMesh } from './characters/PaltinMexicanMesh';
 import { CalabacinMesh } from './characters/CalabacinMesh';
 import { PattyJoeMesh } from './characters/PattyJoeMesh';
 
@@ -145,6 +146,7 @@ export const Player: React.FC<PlayerProps> = ({ playerRef }) => {
                 {selectedCharacter === 'calabacin' && <CalabacinMesh />}
                 {selectedCharacter === 'paltin' && <PaltinMesh />}
                 {selectedCharacter === 'paltin_samurai' && <PaltinSamuraiMesh />}
+                {selectedCharacter === 'paltin_mexican' && <PaltinMexicanMesh />}
             </group>
         </group>
     );
