@@ -2,16 +2,20 @@ import type { ZoneTheme } from './types';
 import { jungleTheme } from './JungleZone';
 import { atacamaTheme } from './AtacamaZone';
 import { patagoniaTheme } from './PatagoniaZone';
+import { japanTheme } from './JapanZone';
+import { japanCityTheme } from './JapanCityZone';
 
-export const LATIN_AMERICA_ZONES: ZoneTheme[] = [
+export const ALL_ZONES: ZoneTheme[] = [
     jungleTheme,
     atacamaTheme,
-    patagoniaTheme
+    patagoniaTheme,
+    japanTheme,
+    japanCityTheme
 ];
 
 export const SEGMENTS_PER_ZONE = 20;
 
 export function getZoneForSegment(segmentPassedCount: number): ZoneTheme {
-    const zoneIndex = Math.floor(segmentPassedCount / SEGMENTS_PER_ZONE) % LATIN_AMERICA_ZONES.length;
-    return LATIN_AMERICA_ZONES[zoneIndex];
+    const zoneIndex = Math.floor(segmentPassedCount / SEGMENTS_PER_ZONE) % ALL_ZONES.length;
+    return ALL_ZONES[zoneIndex];
 }

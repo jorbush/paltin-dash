@@ -31,6 +31,8 @@ export const translations = {
         zone_amazon_jungle: 'The Jungle',
         zone_atacama_desert: 'Atacama Desert',
         zone_patagonia_glacier: 'Patagonia',
+        zone_japan_shrine: 'Japan Shrine',
+        zone_japan_city: 'Tokyo Night',
     },
     es: {
         title: 'Paltín Dash',
@@ -64,6 +66,8 @@ export const translations = {
         zone_amazon_jungle: 'La Selva',
         zone_atacama_desert: 'Desierto de Atacama',
         zone_patagonia_glacier: 'La Patagonia',
+        zone_japan_shrine: 'Santuario de Japón',
+        zone_japan_city: 'Tokio de Noche',
     },
     ca: {
         title: 'Paltín Dash',
@@ -97,5 +101,7 @@ export const translations = {
         zone_amazon_jungle: 'La Selva',
         zone_atacama_desert: 'Desert d\'Atacama',
         zone_patagonia_glacier: 'La Patagònia',
+        zone_japan_shrine: 'Santuari del Japó',
+        zone_japan_city: 'Tòquio de Nit',
     },
 };

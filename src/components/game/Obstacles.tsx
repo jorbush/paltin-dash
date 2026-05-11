@@ -3,7 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import { useStore } from '../../store/useStore';
 import { playCoinSound, playCrashSound } from '../../utils/audio';
 import * as THREE from 'three';
-import { getZoneForSegment, LATIN_AMERICA_ZONES, SEGMENTS_PER_ZONE } from './zones/ZoneManager';
+import { getZoneForSegment, ALL_ZONES, SEGMENTS_PER_ZONE } from './zones/ZoneManager';
 
 const LANE_WIDTH = 2;
 const SPAWN_Z = -50;
@@ -44,7 +44,7 @@ export const Obstacles: React.FC<ObstaclesProps> = ({ playerGroupRef }) => {
 
         const time = state.clock.elapsedTime;
         const theme = getZoneForSegment(segmentsPassed);
-        const loopNumber = Math.floor(segmentsPassed / (SEGMENTS_PER_ZONE * LATIN_AMERICA_ZONES.length));
+        const loopNumber = Math.floor(segmentsPassed / (SEGMENTS_PER_ZONE * ALL_ZONES.length));
 
         // 1. Spawning Logic
         if (time > nextSpawnTime.current) {
@@ -79,14 +79,14 @@ export const Obstacles: React.FC<ObstaclesProps> = ({ playerGroupRef }) => {
 
                 if (spawnEnemy) {
                     // Determine behavior based on zone
-                    if (theme.id === 'amazon_jungle' && theme.ProjectileMesh) {
-                        // Spawn Monkey (thrower) and Banana (projectile)
+                    if (theme.ProjectileMesh) {
+                        // Spawn Thrower Enemy and Projectile
                         const side = Math.random() > 0.5 ? 1 : -1;
-                        const monkeyId = idCounter.current++;
-                        const bananaId = idCounter.current++;
+                        const throwerId = idCounter.current++;
+                        const projectileId = idCounter.current++;
 
-                        const monkey: Entity = {
-                            id: monkeyId,
+                        const thrower: Entity = {
+                            id: throwerId,
                             type: 'enemy',
                             lane: side * 2, // Far side
                             x: side * 6,
@@ -96,8 +96,8 @@ export const Obstacles: React.FC<ObstaclesProps> = ({ playerGroupRef }) => {
                             vz: 0,
                         };
 
-                        const banana: Entity = {
-                            id: bananaId,
+                        const projectile: Entity = {
+                            id: projectileId,
                             type: 'projectile',
                             lane: 0, // Doesn't matter, uses x
                             x: side * 6,
@@ -107,7 +107,7 @@ export const Obstacles: React.FC<ObstaclesProps> = ({ playerGroupRef }) => {
                             vz: 10, // Faster towards player
                         };
 
-                        entitiesToAdd.push(monkey, banana);
+                        entitiesToAdd.push(thrower, projectile);
                     } else {
                         // Spawn Crosser (Guanaco/Penguin)
                         const startSide = Math.random() > 0.5 ? 1 : -1;
