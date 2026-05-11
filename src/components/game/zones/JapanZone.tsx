@@ -121,6 +121,17 @@ const NinjaEnemy: React.FC = () => {
     );
 };
 
+const ShurikenMesh: React.FC = () => {
+    return (
+        <group rotation={[Math.PI / 2, 0, 0]}>
+            <mesh castShadow receiveShadow>
+                <cylinderGeometry args={[0.5, 0.5, 0.05, 4]} />
+                <meshStandardMaterial color="#404040" metalness={0.8} roughness={0.2} />
+            </mesh>
+        </group>
+    );
+};
+
 // -------- Theme Definition --------
 export const japanTheme: ZoneTheme = {
     id: 'japan_shrine',
@@ -132,4 +143,5 @@ export const japanTheme: ZoneTheme = {
     Scenery: JapanScenery,
     ObstacleMesh: StoneLantern,
     EnemyMesh: NinjaEnemy,
+    ProjectileMesh: ShurikenMesh,
 };
