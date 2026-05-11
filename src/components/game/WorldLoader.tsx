@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useStore } from '../../store/useStore';
 import * as THREE from 'three';
-import { getZoneForSegment, SEGMENTS_PER_ZONE, LATIN_AMERICA_ZONES } from './zones/ZoneManager';
+import { getZoneForSegment, SEGMENTS_PER_ZONE, ALL_ZONES } from './zones/ZoneManager';
 import { ZonePoster } from './zones/ZonePoster';
 import { JorbitesPoster } from './zones/JorbitesPoster';
 
@@ -11,10 +11,10 @@ export const WorldLoader: React.FC = () => {
     const { gameState, addRunScore, segmentsPassed, incrementSegments, runId } = useStore();
     const floorGroupRef = useRef<THREE.Group>(null);
 
-    // Pick a random zone index for the Jorbites poster (0 to LATIN_AMERICA_ZONES.length - 1)
+    // Pick a random zone index for the Jorbites poster (0 to ALL_ZONES.length - 1)
     // Use useMemo with runId so it resets gracefully on new runs.
     const jorbitesRandomZoneIndex = React.useMemo(() => {
-        return Math.floor(Math.random() * LATIN_AMERICA_ZONES.length);
+        return Math.floor(Math.random() * ALL_ZONES.length);
     }, [runId]);
 
     // The segment to place the Jorbites poster: end of the randomly chosen zone.
@@ -77,7 +77,7 @@ export const WorldLoader: React.FC = () => {
                                 zOffset={zOffset}
                             />
                             {/* Poster for the zone name appears at the start of every zone during the first loop */}
-                            {segmentsPassed % SEGMENTS_PER_ZONE === 0 && segmentIndex === -1 && segmentsPassed < SEGMENTS_PER_ZONE * LATIN_AMERICA_ZONES.length && (
+                            {segmentsPassed % SEGMENTS_PER_ZONE === 0 && segmentIndex === -1 && segmentsPassed < SEGMENTS_PER_ZONE * ALL_ZONES.length && (
                                 <ZonePoster zoneId={theme.id} zOffset={zOffset} />
                             )}
                             {/* Jorbites Poster renders at the end of the randomly selected zone exactly once */}

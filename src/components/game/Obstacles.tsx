@@ -3,7 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import { useStore } from '../../store/useStore';
 import { playCoinSound, playCrashSound } from '../../utils/audio';
 import * as THREE from 'three';
-import { getZoneForSegment, LATIN_AMERICA_ZONES, SEGMENTS_PER_ZONE } from './zones/ZoneManager';
+import { getZoneForSegment, ALL_ZONES, SEGMENTS_PER_ZONE } from './zones/ZoneManager';
 
 const LANE_WIDTH = 2;
 const SPAWN_Z = -50;
@@ -44,7 +44,7 @@ export const Obstacles: React.FC<ObstaclesProps> = ({ playerGroupRef }) => {
 
         const time = state.clock.elapsedTime;
         const theme = getZoneForSegment(segmentsPassed);
-        const loopNumber = Math.floor(segmentsPassed / (SEGMENTS_PER_ZONE * LATIN_AMERICA_ZONES.length));
+        const loopNumber = Math.floor(segmentsPassed / (SEGMENTS_PER_ZONE * ALL_ZONES.length));
 
         // 1. Spawning Logic
         if (time > nextSpawnTime.current) {
